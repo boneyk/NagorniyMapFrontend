@@ -1003,7 +1003,7 @@ function init() {
       coords: [43.117066, 131.923375],
       name: "Нагорная кофейня",
       iconUrl: "img/coffee-cup.png",
-      img: "https://static.vl.ru/catalog/1750805789694_big_vlru.jpg",
+      img: "https://s09.stc.yc.kpcdn.net/share/i/4/2451969/wr-750.webp",
       desc: "Вкусные горячие напитки.",
     },
     {
@@ -1054,6 +1054,13 @@ function init() {
       iconUrl: "img/bridges.png",
       img: "https://static.vl.ru/news/1732813089746_default",
       desc: "Красивый вид на город.",
+    }, 
+    {
+      coords: [43.117212, 131.924191],
+      name: "Место отдыха",
+      iconUrl: "img/grass.png",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu1yQMwyNWeOEKlNZ8C6tWinfLBfLHzXgmZQ&s",
+      desc: "Скамейки и лужайка для отдыха.",
     },
   ];
 
