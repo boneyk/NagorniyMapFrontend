@@ -12,7 +12,7 @@ ymaps.ready(async () => {
     const map = new ymaps.Map(
       "map",
       {
-        center: [43.118136, 131.92137],
+        center: [43.118536, 131.92137],
         zoom: 18.5,
         controls: [],
         yandexMapType: "future_map",
@@ -21,7 +21,7 @@ ymaps.ready(async () => {
       {
         restrictMapArea: [
           [43.115, 131.92],
-          [43.119, 131.926],
+          [43.1199, 131.926],
         ],
       }
     );
