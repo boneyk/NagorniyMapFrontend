@@ -6,7 +6,6 @@ async function loadJson() {
 
 ymaps.ready(async () => {
   const data = await loadJson();
-  console.log(data);
   ymaps.ready(init);
 
   function init() {
@@ -25,7 +24,7 @@ ymaps.ready(async () => {
           [43.119, 131.926],
         ],
       }
-    );    
+    );
 
     const parkPolygon1 = new ymaps.Polygon(
       [data.zones.first_zone.coordinates],
@@ -48,13 +47,8 @@ ymaps.ready(async () => {
     );
     map.geoObjects.add(parkPolygon3);
 
-    console.log(data.paths.coordinates)
     data.paths.coordinates.forEach((coords) => {
-      const line = new ymaps.Polyline(
-        coords,
-        {},
-        data.paths.style
-      );
+      const line = new ymaps.Polyline(coords, {}, data.paths.style);
       map.geoObjects.add(line);
     });
 
@@ -71,7 +65,7 @@ ymaps.ready(async () => {
     map.geoObjects.add(kafePolygon);
     map.geoObjects.add(lakePolygon);
 
-    const places = data.places
+    const places = data.places;
 
     const placesList = document.getElementById("placesList");
     const infoFrame = document.getElementById("infoFrame");
@@ -82,7 +76,8 @@ ymaps.ready(async () => {
     const backBtn = document.getElementById("backBtn");
 
     const offcanvasElement = document.getElementById("offcanvasSidebar");
-    const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement);
+    // const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement);
+    const offcanvas = document.getElementById("offcanvasSidebar");
 
     places.forEach((place) => {
       const placemark = new ymaps.Placemark(
@@ -133,21 +128,19 @@ ymaps.ready(async () => {
       item.className = "place-item";
       item.innerHTML = `<img class="place-icon" src="${place.iconUrl}"> ${place.name}`;
       item.onclick = () => {
-        map.setCenter(place.coords, 19, { duration: 500 });
+        map.panTo(place.coords, 19, { duration: 500 });
+
         placemark.balloon.open();
 
-        // сворачиваем offcanvas до 50vh
-        const startY = window.innerHeight * 0.5; // 50vh
-        const lastTranslateY = startY; // обновляем переменную в drag-сценарии
-        mapOffcanvas.style.transition = "transform 0.1s ease";
-        mapOffcanvas.style.transform = `translateY(${lastTranslateY}px)`;
+        const minHeight = window.innerHeight * 0.5;
+        offcanvas.style.transition = "height 0.3s ease";
+        offcanvas.style.height = `${minHeight}px`;
 
         menuList.style.display = "none";
         infoFrame.style.display = "block";
         infoTitle.textContent = place.name;
         infoImg.src = place.img;
         infoDesc.textContent = place.desc;
-        // offcanvas.hide();
       };
       placesList.appendChild(item);
       map.geoObjects.add(placemark);
