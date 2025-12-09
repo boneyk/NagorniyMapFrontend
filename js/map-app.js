@@ -161,4 +161,5 @@ ymaps.ready(async () => {
       obj.listItem.style.display = visible ? "flex" : "none";
     });
   };
+  
 });
