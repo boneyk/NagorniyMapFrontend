@@ -153,8 +153,6 @@ ymaps.ready(async () => {
     infoFrame.style.display = "none";
     menuList.style.display = "block";
 
-    console.log(currentFilter);
-
     placemarks.forEach((obj) => {
       const visible =
         obj.category === currentFilter || currentFilter === "none";
