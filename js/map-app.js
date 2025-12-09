@@ -6,9 +6,9 @@ async function loadJson() {
 
 ymaps.ready(async () => {
   const data = await loadJson();
-  ymaps.ready(init);
+  // ymaps.ready(init);
 
-  function init() {
+  // function init() {
     const map = new ymaps.Map(
       "map",
       {
@@ -127,5 +127,5 @@ ymaps.ready(async () => {
     baseOfOffcanvas.show();
 
     // map.copyrights.add("© Plyusnina Anastasia");
-  }
+  // }
 });
