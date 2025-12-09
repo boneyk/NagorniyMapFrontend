@@ -75,28 +75,7 @@ ymaps.ready(async () => {
     const infoDesc = document.getElementById("infoDesc");
     const backBtn = document.getElementById("backBtn");
 
-    const offcanvasElement = document.getElementById("offcanvasSidebar");
-    // const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasElement);
     const offcanvas = document.getElementById("offcanvasSidebar");
-
-    places.forEach((place) => {
-      const placemark = new ymaps.Placemark(
-        place.coords,
-        {
-          balloonContentHeader: place.name,
-          balloonContentBody: `<img class="popup-img"><p>${place.desc}</p>`,
-        },
-        {
-          iconLayout: "default#image",
-          iconImageHref: place.iconUrl,
-          iconImageSize: [32, 32],
-          iconImageOffset: [-16, -32],
-          balloonOffset: [0, -32],
-          balloonAutoPan: true,
-          hideIconOnBalloonOpen: false,
-        }
-      );
-    });
 
     backBtn.onclick = () => {
       infoFrame.style.display = "none";
