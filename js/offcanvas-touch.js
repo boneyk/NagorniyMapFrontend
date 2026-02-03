@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const offcanvas = document.getElementById("offcanvasSidebar");
   let startY = 0, // точка захвата (палец / курсор)
-      currentY = 0, // текущая позиция
-      offsetY = 0, // итоговое смещение панели
-      isDragging = false; // идёт ли перетаскивание
+    currentY = 0, // текущая позиция
+    offsetY = 0, // итоговое смещение панели
+    isDragging = false; // идёт ли перетаскивание
   
   let lastTranslateY = window.innerHeight * 0.5; // Текущее положение панели: Стартовая высота панели - 50vh
   const handleHeight = 50; // Высота ярлычка снизу, который всегда должен оставаться видимым.
@@ -36,15 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
     offcanvas.style.transform = `translateY(${lastTranslateY}px)`;
   });
 
-  offcanvas.addEventListener("mousedown", (e) => {
-    startY = e.clientY - lastTranslateY;
+  offcanvas.addEventListener("mousedown", (event) => {
+    startY = event.clientY - lastTranslateY;
     isDragging = true;
     offcanvas.style.transition = "none";
   });
 
-  document.addEventListener("mousemove", (e) => {
+  document.addEventListener("mousemove", (event) => {
     if (!isDragging) return;
-    currentY = e.clientY;
+    currentY = event.clientY;
     offsetY = currentY - startY;
     if (offsetY < minTranslateY) offsetY = minTranslateY;
     if (offsetY > maxTranslateY) offsetY = maxTranslateY;
