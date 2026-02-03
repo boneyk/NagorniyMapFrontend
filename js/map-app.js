@@ -71,6 +71,7 @@ ymaps.ready(async () => {
   const infoImg = document.getElementById("infoImg");
   const infoDesc = document.getElementById("infoDesc");
   const backBtn = document.getElementById("backBtn");
+  const sourceTag = document.getElementById("source");
 
   const offcanvas = document.getElementById("offcanvasSidebar");
 
@@ -114,6 +115,7 @@ ymaps.ready(async () => {
       infoTitle.textContent = place.name;
       infoImg.src = place.img;
       infoDesc.textContent = place.desc;
+      sourceTag.innerHTML = `<a href="${place.img}" target="_blank" rel="noopener noreferrer">Источник фото</a>`;
     };
     placemarks.push({
       placemark: placemark,
@@ -128,19 +130,24 @@ ymaps.ready(async () => {
 
   const buttons = document.querySelectorAll(".btn.btn-primary.filter");
   let currentFilter = "none";
+  let activeFilter = null;
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      currentFilter = button.id.trim();
+      const clickedCategory = button.id.trim();
+      if (activeFilter === clickedCategory) {
+        activeFilter = null;
+        button.classList.remove("active");
+      } else {
+        activeFilter = clickedCategory;
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+      }
       placemarks.forEach((obj) => {
-        let visible =
-          obj.category === currentFilter || currentFilter === "none";
-        if (currentFilter == "all") {
-          visible = "none";
-        }
-
-        obj.placemark.options.set("visible", visible);
-        obj.listItem.style.display = visible ? "block" : "none";
+        const isVisible =
+          activeFilter === null || obj.category === activeFilter;
+        obj.placemark.options.set("visible", isVisible);
+        obj.listItem.style.display = isVisible ? "block" : "none";
       });
     });
   });
@@ -148,11 +155,9 @@ ymaps.ready(async () => {
   backBtn.onclick = () => {
     infoFrame.style.display = "none";
     menuList.style.display = "block";
-
     placemarks.forEach((obj) => {
-      const visible =
-        obj.category === currentFilter || currentFilter === "none";
-      obj.listItem.style.display = visible ? "flex" : "none";
+      const isVisible = activeFilter === null || obj.category === activeFilter;
+      obj.listItem.style.display = isVisible ? "block" : "none";
     });
   };
 });
