@@ -70,6 +70,8 @@ ymaps.ready(async () => {
   const infoTitle = document.getElementById("infoTitle");
   const infoImg = document.getElementById("infoImg");
   const infoDesc = document.getElementById("infoDesc");
+  const imgPlaceholder = document.getElementById("imgPlaceholder");
+  const descPlaceholder = document.getElementById("descPlaceholder");
   const backBtn = document.getElementById("backBtn");
   const sourceTag = document.getElementById("source");
 
@@ -93,7 +95,7 @@ ymaps.ready(async () => {
         iconImageSize: [32, 32],
         iconImageOffset: [-16, -32],
         balloonOffset: [0, -32],
-        balloonAutoPan: true,
+        balloonAutoPan: false,
         hideIconOnBalloonOpen: false,
       },
     );
@@ -102,20 +104,35 @@ ymaps.ready(async () => {
     item.className = "place-item";
     item.innerHTML = `<img class="place-icon" src="${place.iconUrl}"> ${place.name}`;
     item.onclick = () => {
-      // map.panTo(place.coords, 19, { duration: 500 });
+
       map.setCenter(placemark.geometry.getCoordinates());
       placemark.balloon.open();
 
-      const minHeight = window.innerHeight * 0.5;
-      offcanvas.style.transition = "height 0.3s ease";
-      offcanvas.style.height = `${minHeight}px`;
 
       menuList.style.display = "none";
       infoFrame.style.display = "block";
       infoTitle.textContent = place.name;
-      infoImg.src = place.img;
-      infoDesc.textContent = place.desc;
       sourceTag.innerHTML = `<a href="${place.img}" target="_blank" rel="noopener noreferrer">Источник фото</a>`;
+
+      imgPlaceholder.style.display = "block";
+      descPlaceholder.style.display = "block";
+      infoImg.style.display = "none";
+      infoDesc.style.display = "none";
+
+      infoImg.onload = () => {
+        console.log(infoFrame, infoImg.src, place.img);
+        imgPlaceholder.style.display = "none";
+        descPlaceholder.style.display = "none";
+        infoImg.style.display = "block";
+        infoDesc.textContent = place.desc;
+        infoDesc.style.display = "block";
+      };
+      infoImg.onerror = () => {
+        imgPlaceholder.style.display = "none";
+        descPlaceholder.style.display = "none";
+        infoDesc.textContent = "Нет информации о месте";
+      };
+      infoImg.src = place.img;
     };
     placemarks.push({
       placemark: placemark,
@@ -145,7 +162,6 @@ ymaps.ready(async () => {
       placemarks.forEach((obj) => {
         const isVisible =
           activeFilter === null || obj.category === activeFilter;
-        console.log("при фильтрации значение переменной isVisible", isVisible);
         obj.placemark.options.set("visible", isVisible);
         obj.listItem.style.display = isVisible ? "block" : "none";
       });
