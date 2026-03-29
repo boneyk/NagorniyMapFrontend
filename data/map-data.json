@@ -856,8 +856,8 @@
         [43.118483, 131.921829]
       ],
       "style": {
-        "fillColor": "rgba(255,0,0,0.6)",
-        "strokeColor": "#FF0000",
+        "fillColor": "rgba(194,191,190,0.6)",
+        "strokeColor": "#c2bfbe",
         "strokeWidth": 2
       }
     },
@@ -880,7 +880,7 @@
   },
   "places": [
     {
-      "coords": [43.118498, 131.921068],
+      "coords": [43.11844, 131.921068],
       "name": "Центральный вход",
       "iconUrl": "icons/entry.png",
       "img": "https://irecommend.ru/sites/default/files/imagecache/copyright1/user-images/780059/MKC8MtpNa6lublq39RrdA.jpg",

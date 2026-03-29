@@ -102,8 +102,8 @@ ymaps.ready(async () => {
     item.className = "place-item";
     item.innerHTML = `<img class="place-icon" src="${place.iconUrl}"> ${place.name}`;
     item.onclick = () => {
-      map.panTo(place.coords, 19, { duration: 500 });
-
+      // map.panTo(place.coords, 19, { duration: 500 });
+      map.setCenter(placemark.geometry.getCoordinates());
       placemark.balloon.open();
 
       const minHeight = window.innerHeight * 0.5;
@@ -129,12 +129,11 @@ ymaps.ready(async () => {
   baseOfOffcanvas.show();
 
   const buttons = document.querySelectorAll(".btn.btn-primary.filter");
-  let currentFilter = "none";
   let activeFilter = null;
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const clickedCategory = button.id.trim();
+      const clickedCategory = button.id;
       if (activeFilter === clickedCategory) {
         activeFilter = null;
         button.classList.remove("active");
@@ -146,6 +145,7 @@ ymaps.ready(async () => {
       placemarks.forEach((obj) => {
         const isVisible =
           activeFilter === null || obj.category === activeFilter;
+        console.log("при фильтрации значение переменной isVisible", isVisible);
         obj.placemark.options.set("visible", isVisible);
         obj.listItem.style.display = isVisible ? "block" : "none";
       });
